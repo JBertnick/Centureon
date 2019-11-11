@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <span id="hs_cos_wrapper_module_150401572125061" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h1><span>REACH NEW HEIGHTS.</span><br> GET LOGGED IN TO GET STARTED! </h1></span>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p style="padding-bottom: 0px !impportant;"><button type="submit">Login</button></p> 
+    <!-- <button type="submit">Login</button> -->
+  </form>
+{% endblock %}

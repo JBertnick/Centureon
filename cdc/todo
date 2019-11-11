@@ -1,0 +1,11 @@
++ Reverse Shell
++ Authenication module
++ Web Front End
++ Agent Donwnloads
+    - Need to self generate files
++ NetScan
+    + Agent Scanner
+    + NMap Results
+        - Scanner working, need to add ports
+    + Vulnerability Reports
+        - Need to write backend

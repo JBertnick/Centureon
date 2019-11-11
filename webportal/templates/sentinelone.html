@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Comtact Defence - SentinelOne{% endblock %}
+
+{% block menu%}
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children submenu-trigger">
+    <a>SentinelOne ▾</a>
+    <ul class="dropone hs-menu-children-wrapper ">
+    <div class="match-my-cols">
+        <div class="col9">
+            <div class="row">
+                <div class="col3">
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <span class="title">Dashboards</span>
+                    </li>
+                    <div class="spacer-15"></div>
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <a href="/security-audit">SOC View</a>
+                    </li>
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <a href="/security-audit">NOC View</a>
+                    </li>
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <a href="/crest-certified-penetration-testing-services">SIEM</a>
+                        <ul class="menu-sublist">
+                            <li class="hs-menu-item hs-menu-depth-2">
+                                <a href="/network-penetration-testing-external">» Firewall</a>
+                            </li>
+                            <li class="hs-menu-item hs-menu-depth-2">
+                                <a href="/network-penetration-testing-internal">» Events</a>
+                            </li>
+                            <li class="hs-menu-item hs-menu-depth-2">
+                                <a href="/web-application-penetration-testing">» </a>
+                            </li>
+                        </div>
+                            </div>
+                            <!--col9!-->
+                        </div>
+                    </ul>
+                </li>
+{% endblock%}
+
+
+{% block content %}
+
+<h1> SentinelOne </h1>
+
+
+{% endblock %}
+
+{% block section%}
+
+<div class="row-fluid-wrapper row-depth-1 row-number-6 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-rich_text wow fadeInUp" style="" data-widget-type="rich_text" data-x="0" data-w="12">
+<div class="cell-wrapper layout-widget-wrapper">
+<span id="hs_cos_wrapper_module_150408206133030" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><p>Intergrated secuirty for complete protection of your orginisations estate.</p>
+<p style="padding-bottom: 0px !impportant;"><a href="/about-us">Deploy Agents</a></p></span>
+</div><!--end layout-widget-wrapper -->
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+
+{% endblock %}

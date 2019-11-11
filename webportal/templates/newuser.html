@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New User{% endblock %}
+
+{% block content %}
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h1>Add New User</h1>
+
+{% endblock %}
+
+{% block section %}
+
+
+<div class="row-fluid-wrapper">
+<div class="row-fluid">
+<div class="page-center" style="" data-widget-type="cell">
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add User</button>
+  </form>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div>
+
+
+{% endblock %}

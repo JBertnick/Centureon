@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Comtact Defence{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+  <span id="hs_cos_wrapper_module_150401572125061" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h1><span>WELCOME</span><br> {{ user.get_full_name|upper }}! </h1></span>
+  <span id="hs_cos_wrapper_module_150408206133030" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><p>LETS GET TO WORK PROTECTING {{ client|upper }}.</p>
+{% else %}
+  <span id="hs_cos_wrapper_module_150401572125061" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h1><span>REACH NEW HEIGHTS.</span><br> GET LOGGED IN TO GET STARTED! </h1></span>
+  <span id="hs_cos_wrapper_module_150408206133030" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><p>Intergrated secuirty for complete protection of your orginisations estate.</p>
+  <p style="padding-bottom: 0px !impportant;"><a href="/login">Login</a></p></span>
+{% endif %}
+
+{% endblock %}
+
+{% block section %}
+<div class="span12 widget-span widget-type-cell home-section-six" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell page-center" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-rich_text " style="" data-widget-type="rich_text" data-x="0" data-w="12">
+<div class="cell-wrapper layout-widget-wrapper">
+<span id="hs_cos_wrapper_module_150417280301755" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h3>Our Technology Partners</h3>
+<p>Our remarkable success has come from forming deep, long-term relationships with our Gartner-leading technology partners. We have built an incredible knowledge resource to help clients achieve their business objectives.</p></span>
+</div><!--end layout-widget-wrapper -->
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 ">
+<div class="row-fluid ">
+<div class="span3 widget-span widget-type-linked_image " style="" data-widget-type="linked_image" data-x="0" data-w="3">
+<div class="cell-wrapper layout-widget-wrapper">
+<span id="hs_cos_wrapper_module_150417322284087" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="//www.comtact.co.uk/zscaler-cloud-security-web-gateway" id="sen1" style="border-width:0px;border:0px;"><img class="manImg" src="{% static "images/elastic.png" %}"></img></a></span></div>
+</div><!--end widget-span -->
+<div class="span3 widget-span widget-type-linked_image " style="" data-widget-type="linked_image" data-x="3" data-w="3">
+<div class="cell-wrapper layout-widget-wrapper">
+<span id="hs_cos_wrapper_module_150417323225688" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="//www.comtact.co.uk/logrhythm-siem" id="hs-link-module_150417323225688" style="border-width:0px;border:0px;"><img class="manImg" src="{% static "images/elastic.png" %}"></img></a></span></div>
+</div><!--end widget-span -->
+<div class="span3 widget-span widget-type-linked_image " style="" data-widget-type="linked_image" data-x="6" data-w="3">
+<div class="cell-wrapper layout-widget-wrapper">
+<span id="hs_cos_wrapper_module_150417323885989" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="//www.comtact.co.uk/ibm-maas360-mdm" id="hs-link-module_150417323885989" style="border-width:0px;border:0px;"><img class="manImg" src="{% static "images/elastic.png" %}"></img></a></span></div>
+</div><!--end widget-span -->
+<div class="span3 widget-span widget-type-linked_image " style="" data-widget-type="linked_image" data-x="9" data-w="3">
+<div class="cell-wrapper layout-widget-wrapper">
+<span id="hs_cos_wrapper_module_150417324430590" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="//www.comtact.co.uk/solarwinds-downloads-it-monitoring-software" id="hs-link-module_150417324430590" style="border-width:0px;border:0px;"><img class="manImg" src="{% static "images/elastic.png" %}"></img></a></span></div>
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div>
+{% endblock %}

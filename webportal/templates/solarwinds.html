@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Comtact Defence - Aurora{% endblock %}
+
+{% block menu%}
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children submenu-trigger">
+    <a>Aurora ▾</a>
+    <ul class="dropone hs-menu-children-wrapper ">
+    <div class="match-my-cols">
+        <div class="col9">
+            <div class="row">
+                <div class="col3">
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <span class="title">Dashboards</span>
+                    </li>
+                    <div class="spacer-15"></div>
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <a href="/security-audit">SOC View</a>
+                    </li>
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <a href="/security-audit">NOC View</a>
+                    </li>
+                    <li class="hs-menu-item hs-menu-depth-2">
+                        <a href="/crest-certified-penetration-testing-services">SIEM</a>
+                        <ul class="menu-sublist">
+                            <li class="hs-menu-item hs-menu-depth-2">
+                                <a href="/network-penetration-testing-external">» Firewall</a>
+                            </li>
+                            <li class="hs-menu-item hs-menu-depth-2">
+                                <a href="/network-penetration-testing-internal">» Events</a>
+                            </li>
+                            <li class="hs-menu-item hs-menu-depth-2">
+                                <a href="/web-application-penetration-testing">» </a>
+                            </li>
+                        </div>
+                            </div>
+                            <!--col9!-->
+                        </div>
+                    </ul>
+                </li>
+{% endblock%}
+
+
+{% block content %}
+
+<h1> Aurora </h1>
+
+{% endblock %}
+
+{% block section%}
+
+<script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
+<script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+
+<div class="iframe-container iframe-container-4x4">
+    <iframe src="{{ client.solarwinds_url }}" ></iframe>
+</div>
+
+
+
+{% endblock %}
