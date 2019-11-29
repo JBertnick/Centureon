@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Comtact Defence{% endblock %}
+
+{% block content %}
+
+<h1> Company Networks </h1>
+
+{% endblock %}
+
+{% block section%}
+
+<div class="row-fluid-wrapper row-depth-1 row-number-11">
+<div class="row-fluid">
+<div class="page-center" style="" data-widget-type="cell">
+
+<p> The following networks have been configured in your network. </p>
+
+<table>
+<tr>
+    <th>Name</th>
+    <th>Network</th>
+    <th>Date Added</th>
+    <th>Added By</th>
+</tr>
+{% for network in networks %}
+<tr>
+    <th> {{ network.name }}  </th>
+    <th> {{ network.network }}  </th>
+    <th> {{ network.date_discovered }} </th>
+    <th> {{ network.added_by }} </th>
+</tr> 
+{% endfor %}
+</table>
+
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div>
+
+
+
+{% endblock %}
