@@ -1,12 +1,17 @@
 from django.contrib import admin
-from .models import Enginer
-from .models import Device
-from .models import Agent
-from .models import Scan_data
-from .models import Client_networks
+from .models import Device, Client_networks, sites, assets_owners, assets_tags, assets_networks, assets_virtualappliance, assets_clouds, assets_datastores, assets_hosts, assets_master, assets_users, assets_ports
 
-admin.site.register(Enginer)
 admin.site.register(Device)
-admin.site.register(Agent)
-admin.site.register(Scan_data)
 admin.site.register(Client_networks)
+admin.site.register(sites)
+admin.site.register(assets_owners)
+admin.site.register(assets_tags)
+admin.site.register(assets_networks)
+admin.site.register(assets_virtualappliance)
+admin.site.register(assets_clouds)
+admin.site.register(assets_datastores)
+admin.site.register(assets_hosts)
+admin.site.register(assets_master)
+admin.site.register(assets_users)
+admin.site.register(assets_ports)
+

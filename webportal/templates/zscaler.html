@@ -49,13 +49,28 @@
 
 {% block section%}
 
-<script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
-<script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+<div id="loadingArea"></div>
 
+<script>
+   $(document).ready( //Will run the following function when the html document is ready
+        function() {
+           var url = "{{ client.zscaler_url }}"; //Load the page you want.
+           var portion = "body >" //select the portion of the page you need to eliminate duplicate html, head, and body tags
+                                  //This is a jQuery selector similar to css meaning select all children (>) of body
+
+           //Here we tell jQuery to select the element with id(#) loadingArea and load the
+           //portion of the url.
+           $('#loadingArea').load(url+" "+portion);
+        }
+   ); //End of ready call
+</script>
+
+
+
+{% endblock %}
+
+{% block rubish%}
 <div class="iframe-container iframe-container-4x4">
     <iframe is="x-frame-bypass" src="{{ client.zscaler_url }}" ></iframe>
 </div>
-
-
-
 {% endblock %}

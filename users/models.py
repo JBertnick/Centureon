@@ -15,10 +15,6 @@ class Client(models.Model):
     # Company Details
     company_domain = models.CharField(max_length=50, blank=True)
     vat_number = models.CharField(max_length=50, blank=True)
-    first_line_address = models.CharField(max_length=50, blank=True)
-    second_line_address = models.CharField(max_length=50, blank=True)
-    third_line_address = models.CharField(max_length=50, blank=True)
-    postal_code = models.CharField(max_length=50, blank=True)
     alienvault_url = models.CharField(max_length=100, blank=True)
     kibana_url = models.CharField(max_length=100, blank=True)
     zscaler_url = models.CharField(max_length=100, blank=True)

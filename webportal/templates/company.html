@@ -16,7 +16,20 @@
 
 <p> This is your company details </p>
 
-Alien Vault is connected at {{ client.alienvault_url }}
+<table>
+<tr>
+    <th>Business Name</th>
+    <th></th>
+    <th>Date Added</th>
+    <th>Added By</th>
+</tr>
+<tr>
+    <th> {{ client.name }}  </th>
+    <th> {{ head_office }} </th>
+    <th> {{ networks.network }}  </th>
+    <th> {{ networks.date_discovered }} </th>
+</tr> 
+</table>
 
 
 </div><!--end widget-span -->

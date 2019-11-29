@@ -3,15 +3,8 @@
 
 from tastypie.resources import ModelResource, fields, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
-from netscan.models import Agent, Device, Scan_data, Client_networks
+from netscan.models import Device, Client_networks
 from users.models import Client
-
-class AgentResource(ModelResource):
-    class Meta:
-        queryset = Agent.objects.all()
-        resource_name = 'agent'
-        allowed_methods = ['get', 'post', 'put']
-
 
 class ClientResource(ModelResource):
     class Meta:
@@ -42,11 +35,5 @@ class DeviceResource(ModelResource):
             'client': ALL_WITH_RELATIONS,
             'ip_address': ALL_WITH_RELATIONS
         }
-
-class Scan_dataResource(ModelResource):
-    class Meta:
-        queryset = Scan_data.objects.all()
-        resource_name = 'scan_data'
-        allowed_methods = ['get', 'post', 'put']
 
 

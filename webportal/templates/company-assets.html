@@ -14,9 +14,22 @@
 <div class="row-fluid">
 <div class="page-center" style="" data-widget-type="cell">
 
-<p> This is your company assets </p>
+<p> The following assets have been found in your enviorment.  </p>
 
-Alien Vault is connected at {{ client.alienvault_url }}
+<table>
+<tr>
+    <th>DNS Name</th>
+    <th>IP Address</th>
+    <th>Data Discovered</th>
+</tr>
+{% for asset in assets %}
+<tr>
+    <th> {{ asset.dns_name }}  </th>
+    <th> {{ asset.ip_address }}  </th>
+    <th> {{ asset.scan_date }}  </th>
+</tr> 
+{% endfor %}
+</table>
 
 
 </div><!--end widget-span -->
