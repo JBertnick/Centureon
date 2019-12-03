@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
 
 class assets_tags(models.Model):
     class Meta:
@@ -13,6 +15,66 @@ class assets_tags(models.Model):
 
     def __str__(self):
         return self.name + ":" + self.value
+
+class assets_owners(models.Model):
+    class Meta:
+        verbose_name_plural = "Assets Owner"
+
+    first_name = models.CharField(max_length=50)
+    second_name = models.CharField(max_length=50)
+    description = models.CharField(max_length=250)
+    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, null=True)
+
+    tag = models.ManyToManyField(assets_tags)
+    
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    enabled = models.BooleanField(blank=False, default=True)
+
+
+    def __str__(self):
+        return self.first_name + " " + self.second_name
+
+class assets_master(models.Model):
+    class Meta:
+        verbose_name_plural = "Assets"
+
+    name = models.CharField(max_length=50)
+
+    STATE = (
+    (1, ('Production')),
+    (2, ('Development')),
+    (3, ('Test')),
+    (4, ('Decomissioned')),
+    )
+
+    state = models.PositiveSmallIntegerField(
+    choices=STATE,
+    default=1,
+    )
+    
+    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(assets_owners, on_delete=models.SET_NULL, null=True)
+
+
+    limit = models.Q(app_label='netscan', model='assets_hosts') | \
+        models.Q(app_label='netscan', model='assets_clouds')| \
+        models.Q(app_label='netscan', model='assets_datastores')| \
+        models.Q(app_label='netscan', model='assets_users')| \
+        models.Q(app_label='netscan', model='assets_networks')| \
+        models.Q(app_label='netscan', model='assets_virtualappliance')
+
+    type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=False, limit_choices_to=limit)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('type', 'object_id')
+
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    enabled = models.BooleanField(blank=False, default=True)
+
+    def __str__(self):
+        return self.name
 
 class Client_networks(models.Model):
     class Meta:
@@ -46,6 +108,7 @@ class sites(models.Model):
 
     date_added = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=200, blank=True)
+    enabled = models.BooleanField(blank=False, default=True)
 
     def __str__(self):
         return self.name
@@ -60,26 +123,6 @@ class Device(models.Model):
         return self.ip_address
 
 # Asset Register NEW format.
-
-class assets_owners(models.Model):
-    class Meta:
-        verbose_name_plural = "Assets Owner"
-
-    first_name = models.CharField(max_length=50)
-    second_name = models.CharField(max_length=50)
-    description = models.CharField(max_length=250)
-    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, null=True)
-
-    tag = models.ManyToManyField(assets_tags)
-    
-    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
-
-
-    def __str__(self):
-        return self.first_name + " " + self.second_name
 
 class assets_virtualappliance(models.Model):
     class Meta:
@@ -102,11 +145,15 @@ class assets_networks(models.Model):
     virtual_appliance = models.ForeignKey(assets_virtualappliance, on_delete=models.CASCADE)
     external_asset = models.BooleanField(blank=True)
 
+    # asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+
     tag = models.ManyToManyField(assets_tags, blank=True)
     
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
+    enabled = models.BooleanField(blank=False, default=True)
+
+
 
 class assets_hosts(models.Model):
     class Meta:
@@ -116,18 +163,20 @@ class assets_hosts(models.Model):
     ip_address = models.GenericIPAddressField(max_length=15)
     fqdn = models.CharField(max_length=50)
     site = models.ForeignKey(sites, on_delete=models.SET_NULL, null=True)
-    
+
     external_asset = models.BooleanField(blank=True)
     operating_system = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
     device_type = models.CharField(max_length=250)
     ports_open = models.CharField(max_length=250)
 
+    #    asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+
     tag = models.ManyToManyField(assets_tags, blank=True)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
+    enabled = models.BooleanField(blank=False, default=True)
 
     def __str__(self):
         return self.fqdn
@@ -144,11 +193,13 @@ class assets_users(models.Model):
     role = models.CharField(max_length=50)
     manager = models.CharField(max_length=50)
 
+    #asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+
     tag = models.ManyToManyField(assets_tags, blank=True)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
+    enabled = models.BooleanField(blank=False, default=True)
 
 class assets_datastores(models.Model):
     class Meta:
@@ -161,9 +212,11 @@ class assets_datastores(models.Model):
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
+    #asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
+    enabled = models.BooleanField(blank=False, default=True)
 
 
 class assets_clouds(models.Model):
@@ -190,49 +243,12 @@ class assets_clouds(models.Model):
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
-
-class assets_master(models.Model):
-    class Meta:
-        verbose_name_plural = "Assets"
-    
-    name = models.CharField(max_length=50)
-
-    STATE = (
-    (1, ('Production')),
-    (2, ('Development')),
-    (3, ('Test')),
-    (4, ('Decomissioned')),
-    )
-
-    state = models.PositiveSmallIntegerField(
-      choices=STATE,
-      default=1,
-   )
-    
-    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, null=True)
-    owner = models.ForeignKey(assets_owners, on_delete=models.SET_NULL, null=True)
-
-
-    limit = models.Q(app_label='netscan', model='assets_hosts') | \
-        models.Q(app_label='netscan', model='assets_clouds')| \
-        models.Q(app_label='netscan', model='assets_datastores')| \
-        models.Q(app_label='netscan', model='assets_users')| \
-        models.Q(app_label='netscan', model='assets_networks')| \
-        models.Q(app_label='netscan', model='assets_virtualappliance')
-
-    type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=False, limit_choices_to=limit)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('type', 'object_id')
+    #asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    enabled = models.BooleanField(blank=False)
+    enabled = models.BooleanField(blank=False, default=True)
 
-    def __str__(self):
-        return self.name
 
 class assets_ports(models.Model):
     class Meta:
@@ -250,7 +266,6 @@ class assets_ports(models.Model):
 
     number = models.IntegerField()
     description = models.TextField(max_length=500)
-    
 
 
 

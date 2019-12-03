@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Comtact Defence{% endblock %}
+
+{% block content %}
+
+<h1> Company Assets - Hosts </h1>
+
+{% endblock %}
+
+{% block section%}
+
+<form method="post">
+  {% csrf_token %}
+  {{ assetmasterform.as_p }}
+  {{ assethostform.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+
+{% endblock %}
