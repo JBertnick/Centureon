@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.dispatch import receiver
-from django.db.models.signals import pre_save
 
 class assets_tags(models.Model):
     class Meta:
@@ -11,7 +9,7 @@ class assets_tags(models.Model):
     name = models.CharField(max_length=50)
     value = models.CharField(max_length=50)
     client = models.ForeignKey('users.Client', on_delete=models.CASCADE)
-    added_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name + ":" + self.value
@@ -27,7 +25,9 @@ class assets_owners(models.Model):
 
     tag = models.ManyToManyField(assets_tags)
     
+    
     valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -69,6 +69,9 @@ class assets_master(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('type', 'object_id')
 
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -82,9 +85,13 @@ class Client_networks(models.Model):
 
     name = models.CharField(max_length=20, blank=True)
     network = models.CharField(max_length=15)
+    
     client = models.ForeignKey('users.Client', on_delete=models.CASCADE)
+    
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     date_added = models.DateTimeField(auto_now=True)
-    added_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, blank=True, null=True)
+    enabled = models.BooleanField(blank=False, default=True)
 
     description = models.CharField(max_length=200, blank=True)
 
@@ -96,7 +103,7 @@ class sites(models.Model):
         verbose_name_plural = "Sites"
 
     client = models.ForeignKey('users.Client', on_delete=models.CASCADE)
-    added_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
+
 
     name = models.CharField(max_length=20, blank=True)
     first_line_address = models.CharField(max_length=50, blank=True)
@@ -106,6 +113,9 @@ class sites(models.Model):
 
     is_headoffice = models.BooleanField(default=False)
 
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     date_added = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=200, blank=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -145,10 +155,13 @@ class assets_networks(models.Model):
     virtual_appliance = models.ForeignKey(assets_virtualappliance, on_delete=models.CASCADE)
     external_asset = models.BooleanField(blank=True)
 
-    # asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, null=True)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
     
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -170,10 +183,12 @@ class assets_hosts(models.Model):
     device_type = models.CharField(max_length=250)
     ports_open = models.CharField(max_length=250)
 
-    #    asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, null=True)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -193,10 +208,12 @@ class assets_users(models.Model):
     role = models.CharField(max_length=50)
     manager = models.CharField(max_length=50)
 
-    #asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, null=True)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -212,8 +229,10 @@ class assets_datastores(models.Model):
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
-    #asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, null=True)
 
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
@@ -243,8 +262,10 @@ class assets_clouds(models.Model):
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
-    #asset = models.OneToOneField(assets_master, on_delete=models.CASCADE, primary_key=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, null=True)
 
+    valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
