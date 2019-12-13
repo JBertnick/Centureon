@@ -1,8 +1,6 @@
 from django.contrib import admin
-from .models import Device, Client_networks, sites, assets_owners, assets_tags, assets_networks, assets_virtualappliance, assets_clouds, assets_datastores, assets_hosts, assets_master, assets_users, assets_ports
+from .models import sites, assets_owners, assets_tags, assets_networks, assets_virtualappliance, assets_clouds, assets_datastores, assets_hosts, assets_master, assets_users, assets_ports
 
-admin.site.register(Device)
-admin.site.register(Client_networks)
 admin.site.register(sites)
 admin.site.register(assets_owners)
 admin.site.register(assets_tags)

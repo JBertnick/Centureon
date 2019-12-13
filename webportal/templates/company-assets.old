@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Comtact Defence{% endblock %}
+
+{% block content %}
+
+<h1> Company Assets </h1>
+
+{% endblock %}
+
+{% block section%}
+
+<div class="row-fluid-wrapper row-depth-1 row-number-11">
+<div class="row-fluid">
+<div class="page-center" style="" data-widget-type="cell">
+
+<p> The following assets have been found in your enviorment.  </p>
+
+<table>
+<tr>
+    <th>DNS Name</th>
+    <th>IP Address</th>
+    <th>Data Discovered</th>
+</tr>
+{% for asset in assets %}
+<tr>
+    <th> {{ asset.dns_name }}  </th>
+    <th> {{ asset.ip_address }}  </th>
+    <th> {{ asset.scan_date }}  </th>
+</tr> 
+{% endfor %}
+</table>
+
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div>
+
+
+
+{% endblock %}

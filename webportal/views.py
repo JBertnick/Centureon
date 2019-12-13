@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from users.models import Client, CustomUser
-from netscan.models import Device, Client_networks, sites
+from netscan.models import sites, assets_master
 from django.contrib.auth import login, authenticate
 from users.forms import CompanyAddUserForm
 from django.contrib.auth.decorators import login_required
@@ -113,7 +113,7 @@ def companysitesview(request):
 def companyassetsview(request):
     if request.user.is_authenticated:
         client = request.user.client
-        assets = Device.objects.filter(client=client)
+        assets = assets_master.objects.filter(client=client)
     else:
         client = ''
         pass
