@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Centureon - {{ device.name }}{% endblock %}
+
+{% block content %}
+
+{% load staticfiles%}
+
+{% include 'menu.html' %}
+
+<main role="main" class="col-lg px-5">
+  <div class="flex-row justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-2 border-bottom">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-1">
+      <h1 class="h2">Device Asset</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Device Details</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Device DNS - {{ device.fqdn }}</li>
+                  <li class="list-group-item">Device IP - {{ device.ip_address }}</li>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Extended Information</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Site - {{ device.fqdn }}</li>
+                  <li class="list-group-item">Owner - {{ device.ip_address }}</li>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Extended Information</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Site - {{ device.fqdn }}</li>
+                  <li class="list-group-item">Owner - {{ device.ip_address }}</li>
+              </div>
+            </div>
+          </div>
+          
+  
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="{% static 'js/dashboard.js'%}"></script></body>
+{% endblock %}
+
+{% block section%}
+
+
+{% endblock %}

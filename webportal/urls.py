@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.urls import path
-from webportal.views import homeview, companyview, adduserview, kibanaview, zscalerview, solarwindsview, companyassetsview, companysitesview, companynetworksview, sentienloneview, auroraproxyview, companyusersview
+from webportal.views import homeview, companyview, adduserview, kibanaview, zscalerview, solarwindsview, sentienloneview, auroraproxyview
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -11,10 +11,6 @@ urlpatterns = [
     path('home/company/zscaler', zscalerview),
     path('home/company/solarwinds', solarwindsview),
     path('home/company/sentinelone', sentienloneview),
-    path('home/company/assets', companyassetsview),
-    path('home/company/users', companyusersview),
-    path('home/company/networks', companynetworksview),
-    path('home/company/sites', companysitesview),
     path('home/company', companyview, name='companyprofile'),
     path('home/company/adduser', adduserview, name='adduser')
 ]
