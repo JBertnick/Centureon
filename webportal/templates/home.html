@@ -23,48 +23,49 @@
 
 {% if user.is_authenticated %}
 
-  <div class="row">
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Platform Notes</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Version 0.1</h6>
-          <p class="card-text">Our next update to the platform is scheduled for 1 Jan 2019</p>
-          <a href="#" class="card-link">Release Notes</a>
-          <a href="#" class="card-link">Roadmap</a>
+<main role="main" class="col-lg px-5">
+  <div class="flex-row justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-2 border-bottom">
+
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Platform Notes</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Version 0.1</h6>
+            <p class="card-text">Our next update to the platform is scheduled for 1 Jan 2019</p>
+            <a href="#" class="card-link">Release Notes</a>
+            <a href="#" class="card-link">Roadmap</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Your Company</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ client }}</h6>
-          <p class="card-text">Add clever line for company here.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Your Company</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ client }}</h6>
+            <p class="card-text">Add clever line for company here.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Licensing</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Your License Expires on xx/xx/xx</h6>
-          <p class="card-text">Add licensing details in more context here.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div> 
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Licensing</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Your License Expires on xx/xx/xx</h6>
+            <p class="card-text">Add licensing details in more context here.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div> 
+      </div>
     </div>
+    
   </div>
-
-<div class="col-sm-12">
-    <div style='border-bottom:1px solid #ccc; padding-bottom:10px' ></div>
-</div>
-
+</main>
 
 {% endif %} 
 
