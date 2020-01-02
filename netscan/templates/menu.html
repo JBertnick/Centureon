@@ -55,19 +55,19 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" data-toggle="modal" data-target="#modal-newasset" href="">
               <span data-feather="plus-circle"></span>
               Add New Assets
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" data-toggle="modal" data-target="#modal-assetscanning" href="">
               <span data-feather="search"></span>
               Asset Scanning
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" data-toggle="modal" data-target="#modal-assetsexport" href="">
               <span data-feather="download"></span>
               Export Assets
             </a>
@@ -81,3 +81,78 @@
         </ul>
       </div>
     </nav>
+
+<!-- Modal Assets -->
+<div class="modal fade" id="modal-newasset" tabindex="-1" role="dialog" aria-labelledby="modal-newasset" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Select Asset Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Select the type of asset you would like to add to the system. If you are using our Virtual appliance this should only be used for assets which are not scanned.
+      </div>
+      <div class="modal-footer">
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Device</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">User</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Datastore</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Cloud</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Network</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Site</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Asset Scaning -->
+<div class="modal fade" id="modal-assetscanning" tabindex="-1" role="dialog" aria-labelledby="modal-assetscanning" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Asset Scanning</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Select the type of asset scanning you require.
+      </div>
+      <div class="modal-footer">
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Device</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">User</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Datastore</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Cloud</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Network</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Site</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Asset Exporting -->
+<div class="modal fade" id="modal-assetsexport" tabindex="-1" role="dialog" aria-labelledby="modal-assetsexport" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Asset Exporting</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Your assets are exported as a CSV, please select the group of assets to export.
+      </div>
+      <div class="modal-footer">
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Device</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">User</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Datastore</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Cloud</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Network</button>
+        <button onclick="location.href='/device'" type="button" class="btn btn-primary">Site</button>
+      </div>
+    </div>
+  </div>
+</div>

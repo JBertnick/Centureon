@@ -4,6 +4,7 @@ from django.db import transaction
 from django.contrib import messages
 from netscan.models import assets_clouds, assets_datastores, assets_hosts, assets_master, assets_networks, assets_owners, assets_users, sites
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime, timedelta
 
 # Create your views here.
 
@@ -39,7 +40,26 @@ def assetsview(request):
     else:
         client = ''
         pass
-    args = {'client': client, 'assets': assets}
+
+    day7 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=0))).count()
+    day6 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-1))).count()
+    day5 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-2))).count()
+    day4 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-3))).count()
+    day3 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-4))).count()
+    day2 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-5))).count()
+    day1 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-6))).count()
+
+    days = {
+        'day1': day1,
+        'day2': day2,
+        'day3': day3,
+        'day4': day4,
+        'day5': day5,
+        'day6': day6,
+        'day7': day7
+    }
+
+    args = {'client': client, 'assets': assets, 'days': days}
     return render(request, 'assets.html', args)
 
 @login_required(login_url='/login/')
