@@ -3,7 +3,6 @@
 (function() {
     'use strict'
 
-    feather.replace()
 
     // Graphs
     var ctx = document.getElementById('myChart')

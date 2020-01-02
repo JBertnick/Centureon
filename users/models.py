@@ -15,11 +15,21 @@ class Client(models.Model):
     # Company Details
     company_domain = models.CharField(max_length=50, blank=True)
     vat_number = models.CharField(max_length=50, blank=True)
+    # company_account_num = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
+
+    # Company Tech Details
+
     alienvault_url = models.CharField(max_length=100, blank=True)
     kibana_url = models.CharField(max_length=100, blank=True)
     zscaler_url = models.CharField(max_length=100, blank=True)
     sentielone_url = models.CharField(max_length=100, blank=True)
     solarwinds_url = models.CharField(max_length=100, blank=True)
+
+
+    # Licensing
+
+    # Comtact Details
+
     
     def __str__(self):
         return self.name
