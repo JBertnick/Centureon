@@ -4,7 +4,6 @@
   <head>
      <title>{% block title %}{% endblock %}</title>
   </head>
-  <link rel="stylesheet" href="{% static "branding.css" %}">
 
 {# Load the tag library #}
 {% load bootstrap4 %}
@@ -15,8 +14,6 @@
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
-
-
 
 <header>
   <!-- Fixed navbar -->
@@ -43,15 +40,14 @@
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Service Desk</a>
-            <a class="dropdown-item" href="#">Remote Support</a>
+            <a class="dropdown-item" href="https://comtact.microsoftcrmportals.com/support/">Service Desk</a>
+            <!-- <a class="dropdown-item" href="#">Remote Support</a> -->
           </div>
         </li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Your Account</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             <a class="dropdown-item" href="/home/company">Company</a>
-            <a class="dropdown-item" href="#">Profile</a>
             <a class="dropdown-item" href="#">Users</a>
             <a class="dropdown-item" href="#">Connectors</a>
           </div>
@@ -82,8 +78,7 @@
 
   <footer class="container">
     <p class="float-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2017-2019 Comtact, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p>&copy; 2020 Comtact, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
   </footer>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 </html>

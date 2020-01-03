@@ -4,7 +4,7 @@ from django.db import transaction
 from django.contrib import messages
 from netscan.models import assets_clouds, assets_datastores, assets_hosts, assets_master, assets_networks, assets_owners, assets_users, sites
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 # Create your views here.
 
@@ -41,13 +41,13 @@ def assetsview(request):
         client = ''
         pass
 
-    day7 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=0))).count()
-    day6 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-1))).count()
-    day5 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-2))).count()
-    day4 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-3))).count()
-    day3 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-4))).count()
-    day2 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-5))).count()
-    day1 = assets_master.objects.filter(client=client, created_at=(datetime.now()+ timedelta(days=-6))).count()
+    day7 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=0))).count()
+    day6 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-1))).count()
+    day5 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-2))).count()
+    day4 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-3))).count()
+    day3 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-4))).count()
+    day2 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-5))).count()
+    day1 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-6))).count()
 
     days = {
         'day1': day1,

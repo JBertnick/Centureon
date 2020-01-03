@@ -2,27 +2,33 @@
 
 {% block title %}Add New User{% endblock %}
 
-{% block content %}
-<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h1>Add New User</h1>
-
-{% endblock %}
-
 {% block section %}
 
+{% include 'company-menu.html' %}
 
-<div class="row-fluid-wrapper">
-<div class="row-fluid">
-<div class="page-center" style="" data-widget-type="cell">
+<main role="main" class="col-lg px-5">
+  <div class="flex-row justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-2 border-bottom">
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add User</button>
-  </form>
-
-</div><!--end widget-span -->
-</div><!--end row-->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-1">
+      <h1 class="h2">Add New User</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add User</button>
+    </form>
+  </div>
+          
+  
+  </div>
 </div>
-
-
 {% endblock %}

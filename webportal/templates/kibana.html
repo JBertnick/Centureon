@@ -48,6 +48,9 @@
 {% block section%}
 
 
+{% load static %}
+<link rel="stylesheet" href="{% static "iframe.css" %}"></link>
+
 <div class="iframe-container iframe-container-4x4">
     <iframe src="{{ client.kibana_url }}" ></iframe>
 </div>
