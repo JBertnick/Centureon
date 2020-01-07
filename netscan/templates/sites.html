@@ -23,7 +23,7 @@
           <tbody>
             {% for site in sites %}
             <tr>
-                <th> {{ site.name }}  </th>
+                <th> <a href="./sites/{{ site.id }}"> {{ site.name }}  </th>
                 <th> {{ site.is_headoffice }}  </th>
                 <th> {{ site.created_at }} </th>
                 <th> {{ site.created_by }} </th>

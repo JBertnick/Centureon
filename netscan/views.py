@@ -41,13 +41,16 @@ def assetsview(request):
         client = ''
         pass
 
-    day7 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=0))).count()
-    day6 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-1))).count()
-    day5 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-2))).count()
-    day4 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-3))).count()
-    day3 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-4))).count()
-    day2 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-5))).count()
-    day1 = assets_master.objects.filter(client=client, created_at=(datetime.now() + timedelta(days=-6))).count()
+    today = date.today()
+    start_date = '2020-01-01'
+
+    day7 = assets_master.objects.filter(client=client, created_at__range=[start_date, today]).count()
+    day6 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=1)]).count()
+    day5 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=2)]).count()
+    day4 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=3)]).count()
+    day3 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=4)]).count()
+    day2 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=5)]).count()
+    day1 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=6)]).count()
 
     days = {
         'day1': day1,
@@ -118,3 +121,14 @@ def devicesdetailedview(request, id):
     # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
     args = {'client': client, 'device': device}
     return render(request, 'device-display.html', args)
+
+@login_required(login_url='/login/')
+def sitedetailedview(request, id):
+    client = request.user.client
+    try:
+        site  = sites.objects.get(client=client, id=id)
+    except ObjectDoesNotExist:
+        return redirect(assetsview)
+    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
+    args = {'client': client, 'site': site}
+    return render(request, 'site-display.html', args)
