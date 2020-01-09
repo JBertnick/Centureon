@@ -23,7 +23,7 @@
           <tbody>
             {% for user in users %}
             <tr>
-                <th> <a href="{{ user.id }}">{{ user.name }} </a></th>
+                <th> <a href="./users/{{ user.id }}">{{ user.name }} </a></th>
                 <th> {{ user.email }}  </th>
                 <th> {{ user.created }} </th>
                 <th> {{ user.created_by }} </th>

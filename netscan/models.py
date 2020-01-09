@@ -175,7 +175,7 @@ class assets_users(models.Model):
     role = models.CharField(max_length=50, blank=True)
     manager = models.CharField(max_length=50, blank=True)
 
-    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, null=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, blank=True, null=True)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 

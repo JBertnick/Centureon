@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.urls import path
 from netscan.api import ClientResource
-from netscan.views import assetsview, devicesview, datastoresview, cloudsview, usersview, networksview, sitesview, devicesdetailedview, sitedetailedview, deviceaddview, useraddview, devicedeleteview
+from netscan.views import assetsview, devicesview, datastoresview, cloudsview, usersview, networksview, sitesview, devicesdetailedview, sitedetailedview, deviceaddview, useraddview, userdetailedview
 from tastypie.api import Api
 
 
@@ -19,8 +19,8 @@ urlpatterns = [url(r'^api/', include(v1_api.urls)),
     path('home/assets/devices/<int:id>/', devicesdetailedview),
     path('home/assets/sites/<int:id>/', sitedetailedview),
     path('home/assets/devices/add/', deviceaddview),
-    path('home/assets/devices/<int:id>/delete', devicedeleteview),
     path('home/assets/users/add/', useraddview),
+    path('home/assets/users/<int:id>/', userdetailedview),
     #path('home/company/assets/update-host', update_assets_host, name='updatehosts'),
     #path('home/company/assets/new-host', new_assets_host, name='newhosts')
     ]

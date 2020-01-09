@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Centureon - {{ device.name }}{% endblock %}
+{% block title %}Centureon - {{ user.name }}{% endblock %}
 
 {% block content %}
 {% csrf_token %}
@@ -12,7 +12,7 @@
   <div class="flex-row justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-2 border-bottom">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-1">
-      <h1 class="h2">Device Asset</h1>
+      <h1 class="h2">User Asset</h1>
         <div class="btn-toolbar mb-3 mb-md-0">
           <div class="btn-group mr-3">
             <button type="button" id="post-btn" class="btn btn-sm btn-outline-secondary">Delete</button>
@@ -30,7 +30,7 @@
                 <h5 class="card-title">Device Details</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Device DNS - {{ device.fqdn }}</li>
+                  <li class="list-group-item">Username - {{ user.name }}</li>
                   <li class="list-group-item">Device IP - {{ device.ip_address }}</li>
               </div>
             </div>
@@ -95,7 +95,7 @@ button.addEventListener('click', async _ => {
       }
     });
     { 
-        window.location.href = '/home/assets/devices'; 
+        window.location.href = '/home/assets/users'; 
     };
     console.log('Completed!', response);
   } catch(err) {

@@ -1,5 +1,6 @@
 from django import forms
 from netscan.models import assets_master,  assets_hosts, assets_users, sites
+from users.models import Client
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
@@ -35,3 +36,4 @@ class assets_user_form(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Save User'))
         self.fields['site'].queryset = sites.objects.filter(client=client)
+        self.fields['client'].initial = client
