@@ -148,7 +148,7 @@ class assets_hosts(models.Model):
     operating_system = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
     device_type = models.CharField(max_length=250)
-    ports_open = models.CharField(max_length=250)
+    ports_open = models.CharField(max_length=250, blank=True)
 
     client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, blank=True, null=True)
 

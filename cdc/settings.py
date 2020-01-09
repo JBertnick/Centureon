@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'revproxy',
     'bootstrap4',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,12 +88,12 @@ WSGI_APPLICATION = 'cdc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Comtact-cdc',
-        'USER': 'deklan',
-        'PASSWORD': 'Testing1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cdc',
+        'USER': 'cdc',
+        'PASSWORD': 'cdc',
         'HOST': '127.0.0.1',
-        'PORT': "3306",
+        'PORT': "5432",
     }
 }
 

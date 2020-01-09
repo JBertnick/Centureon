@@ -3,8 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from netscan.models import assets_clouds, assets_datastores, assets_hosts, assets_master, assets_networks, assets_owners, assets_users, sites
+from netscan.forms import assets_hosts_form, assets_user_form
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta, date
+from django.views.generic import UpdateView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
@@ -45,12 +49,12 @@ def assetsview(request):
     start_date = '2020-01-01'
 
     day7 = assets_master.objects.filter(client=client, created_at__range=[start_date, today]).count()
-    day6 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=1)]).count()
-    day5 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=2)]).count()
-    day4 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=3)]).count()
-    day3 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=4)]).count()
-    day2 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=5)]).count()
-    day1 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=6)]).count()
+    day6 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=-1)]).count()
+    day5 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=-2)]).count()
+    day4 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=-3)]).count()
+    day3 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=-4)]).count()
+    day2 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=-5)]).count()
+    day1 = assets_master.objects.filter(client=client, created_at__range=[start_date, today + timedelta(days=-6)]).count()
 
     days = {
         'day1': day1,
@@ -95,7 +99,7 @@ def datastoresview(request):
     else:
         client = ''
         pass
-    args = {'client': client, 'datastores': datastores}
+    args = {'datastores': datastores}
     return render(request, 'datastores.html', args)
 
 
@@ -108,7 +112,7 @@ def usersview(request):
         client = ''
         users = ''
         pass
-    args = {'client': client, 'users': users}
+    args = {'users': users}
     return render(request, 'users.html', args)
 
 @login_required(login_url='/login/')
@@ -132,3 +136,40 @@ def sitedetailedview(request, id):
     # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
     args = {'client': client, 'site': site}
     return render(request, 'site-display.html', args)
+
+
+@login_required(login_url='/login/')
+def deviceaddview(request):
+    form = assets_hosts_form(client=request.user.client)
+    if request.method == "POST":
+        form = assets_hosts_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('..')
+    args = {'form': form}
+    return render(request, 'device-form.html', args)
+
+@login_required(login_url='/login/')
+def devicedeleteview(request, id):
+    client = request.user.client
+    try:
+        device  = assets_hosts.objects.get(client=client, id=id)
+        if request.method == "POST":
+            device.delete()
+            return redirect('..')
+        
+    except ObjectDoesNotExist:
+        return redirect(assetsview)
+  
+    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
+    args = {'device': device}
+    return render(request, 'device-display.html', args)
+
+@login_required(login_url='/login/')
+def useraddview(request):
+    client = request.user.client
+    form = assets_user_form(client=client)
+    args = {'client': client, 'form': form}
+    return render(request, 'user-form.html', args)
