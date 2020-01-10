@@ -37,3 +37,18 @@ class assets_user_form(forms.ModelForm):
         self.helper.add_input(Submit('submit', 'Save User'))
         self.fields['site'].queryset = sites.objects.filter(client=client)
         self.fields['client'].initial = client
+
+
+class sites_form(forms.ModelForm):
+    class Meta:
+        model = sites
+        fields = ('name', 'first_line_address', 'second_line_address', 'city', 'postal_code', 'is_headoffice', 'description', 'enabled', 'client')
+
+    def __init__(self, *args, **kwargs):
+        client = kwargs.pop('client', None)
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Save Site'))
+        self.fields['client'].initial = client
+

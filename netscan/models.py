@@ -80,12 +80,12 @@ class sites(models.Model):
     class Meta:
         verbose_name_plural = "Sites"
 
-    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, null=True)
+    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, null=True, blank=True)
 
     name = models.CharField(max_length=20, blank=True)
     first_line_address = models.CharField(max_length=50, blank=True)
     second_line_address = models.CharField(max_length=50, blank=True)
-    third_line_address = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
     postal_code = models.CharField(max_length=50, blank=True)
 
     is_headoffice = models.BooleanField(default=False)

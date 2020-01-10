@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from netscan.models import assets_clouds, assets_datastores, assets_hosts, assets_master, assets_networks, assets_owners, assets_users, sites
-from netscan.forms import assets_hosts_form, assets_user_form
+from netscan.forms import assets_hosts_form, assets_user_form, sites_form
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta, date
 from django.views.generic import UpdateView, CreateView
@@ -24,18 +24,6 @@ def networksview(request):
         pass
     args = {'client': client, 'networks': networks}
     return render(request, 'networks.html', args)
-
-@login_required(login_url='/login/')
-def sitesview(request):
-    if request.user.is_authenticated:
-        client = request.user.client
-        cs = sites.objects.filter(client=client)
-    else:
-        client = ''
-        cs = ''
-        pass
-    args = {'client': client, 'sites': cs}
-    return render(request, 'sites.html', args)
 
 @login_required(login_url='/login/')
 def assetsview(request):
@@ -71,47 +59,6 @@ def assetsview(request):
     return render(request, 'assets.html', args)
 
 @login_required(login_url='/login/')
-def devicesview(request):
-    if request.user.is_authenticated:
-        client = request.user.client
-        devices = assets_hosts.objects.filter(client=client)
-    else:
-        client = ''
-        pass
-    args = {'client': client, 'devices': devices}
-    return render(request, 'devices.html', args)
-
-@login_required(login_url='/login/')
-def devicesdetailedview(request, id):
-    client = request.user.client
-    try:
-        device  = assets_hosts.objects.get(client=client, id=id)
-        if request.method == "POST":
-            if request.POST.get("delete", "yes"):
-                device.delete()
-            else:
-                pass
-    except ObjectDoesNotExist:
-        return redirect(assetsview)
-        
-    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
-    args = {'client': client, 'device': device}
-    return render(request, 'device-display.html', args)
-
-@login_required(login_url='/login/')
-def deviceaddview(request):
-    form = assets_hosts_form(client=request.user.client)
-    if request.method == "POST":
-        form = assets_hosts_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
-            return redirect('/home/assets/devices')
-    args = {'form': form}
-    return render(request, 'device-form.html', args)
-
-@login_required(login_url='/login/')
 def cloudsview(request):
     if request.user.is_authenticated:
         client = request.user.client
@@ -133,6 +80,7 @@ def datastoresview(request):
     args = {'datastores': datastores}
     return render(request, 'datastores.html', args)
 
+# User Views
 
 @login_required(login_url='/login/')
 def usersview(request):
@@ -178,13 +126,91 @@ def useraddview(request):
     args = {'form': form}
     return render(request, 'user-form.html', args)
 
+# Site Views
+
+@login_required(login_url='/login/')
+def sitesview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+        cs = sites.objects.filter(client=client)
+    else:
+        client = ''
+        cs = ''
+        pass
+    args = {'client': client, 'sites': cs}
+    return render(request, 'sites.html', args)
+
 @login_required(login_url='/login/')
 def sitedetailedview(request, id):
     client = request.user.client
     try:
         site  = sites.objects.get(client=client, id=id)
+        if request.method == "POST":
+            if request.POST.get("delete", "yes"):
+                site.delete()
+            else:
+                pass
     except ObjectDoesNotExist:
         return redirect(assetsview)
+
     # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
     args = {'client': client, 'site': site}
     return render(request, 'site-display.html', args)
+
+@login_required(login_url='/login/')
+def siteaddview(request):
+    form = sites_form(client=request.user.client)
+    if request.method == "POST":
+        form = sites_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('/home/assets/sites')
+        else:
+            print(form.errors)
+    args = {'form': form}
+    return render(request, 'site-form.html', args)
+
+# Device Views
+
+@login_required(login_url='/login/')
+def devicesview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+        devices = assets_hosts.objects.filter(client=client)
+    else:
+        client = ''
+        pass
+    args = {'client': client, 'devices': devices}
+    return render(request, 'devices.html', args)
+
+@login_required(login_url='/login/')
+def devicesdetailedview(request, id):
+    client = request.user.client
+    try:
+        device  = assets_hosts.objects.get(client=client, id=id)
+        if request.method == "POST":
+            if request.POST.get("delete", "yes"):
+                device.delete()
+            else:
+                pass
+    except ObjectDoesNotExist:
+        return redirect(assetsview)
+        
+    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
+    args = {'client': client, 'device': device}
+    return render(request, 'device-display.html', args)
+
+@login_required(login_url='/login/')
+def deviceaddview(request):
+    form = assets_hosts_form(client=request.user.client)
+    if request.method == "POST":
+        form = assets_hosts_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('/home/assets/devices')
+    args = {'form': form}
+    return render(request, 'device-form.html', args)
