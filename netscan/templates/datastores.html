@@ -24,7 +24,7 @@
           <tbody>
             {% for datastore in datastores %}
             <tr>
-                <th> {{ datastore.name }}  </th>
+                <th> <a href="./datastores/{{ datastore.id }}"> {{ datastore.name }}  </th>
                 <th> {{ datastore.fqdn }}  </th>
                 <th> {{ datastore.ip_address }}  </th>
                 <th> {{ datastore.created_at }} </th>

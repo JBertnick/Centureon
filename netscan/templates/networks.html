@@ -8,7 +8,7 @@
 {% include 'menu.html' %}
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <h1>Assets</h1>
+      <h1>Networks</h1>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -23,7 +23,7 @@
           <tbody>
             {% for network in networks %}
             <tr>
-                <th> {{ network.name }}  </th>
+                <th> <a href="./networks/{{ network.id }}"> {{ network.name }}  </th>
                 <th> {{ network.cidr }}  </th>
                 <th> {{ network.created_at }} </th>
                 <th> {{ network.created_by }} </th>

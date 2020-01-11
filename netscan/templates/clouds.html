@@ -24,7 +24,7 @@
           <tbody>
             {% for cloud in clouds %}
             <tr>
-                <th> {{ cloud.name }}  </th>
+                <th> <a href="./clouds/{{ cloud.id }}"> {{ cloud.name }}  </th>
                 <th> {{ cloud.fqdn }}  </th>
                 <th> {{ cloud.ip_address }}  </th>
                 <th> {{ cloud.created_at }} </th>

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from netscan.models import assets_clouds, assets_datastores, assets_hosts, assets_master, assets_networks, assets_owners, assets_users, sites
-from netscan.forms import assets_hosts_form, assets_user_form, sites_form
+from netscan.forms import assets_hosts_form, assets_user_form, sites_form, assets_datastores_form, assets_networks_form, assets_clouds_form
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta, date
 from django.views.generic import UpdateView, CreateView
@@ -11,19 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 
 
-# Create your views here.
-
-@login_required(login_url='/login/')
-def networksview(request):
-    if request.user.is_authenticated:
-        client = request.user.client
-        networks = assets_networks.objects.filter(client=client)
-    else:
-        client = ''
-        networks = ''
-        pass
-    args = {'client': client, 'networks': networks}
-    return render(request, 'networks.html', args)
+# Master View
 
 @login_required(login_url='/login/')
 def assetsview(request):
@@ -57,28 +45,6 @@ def assetsview(request):
 
     args = {'client': client, 'assets': assets, 'days': days}
     return render(request, 'assets.html', args)
-
-@login_required(login_url='/login/')
-def cloudsview(request):
-    if request.user.is_authenticated:
-        client = request.user.client
-        clouds = assets_clouds.objects.filter(client=client)
-    else:
-        client = ''
-        pass
-    args = {'client': client, 'clouds': clouds}
-    return render(request, 'clouds.html', args)
-
-@login_required(login_url='/login/')
-def datastoresview(request):
-    if request.user.is_authenticated:
-        client = request.user.client
-        datastores = assets_datastores.objects.filter(client=client)
-    else:
-        client = ''
-        pass
-    args = {'datastores': datastores}
-    return render(request, 'datastores.html', args)
 
 # User Views
 
@@ -214,3 +180,148 @@ def deviceaddview(request):
             return redirect('/home/assets/devices')
     args = {'form': form}
     return render(request, 'device-form.html', args)
+
+# Datastore Views
+
+@login_required(login_url='/login/')
+def datastoresview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+        datastores = assets_datastores.objects.filter(client=client)
+    else:
+        client = ''
+        pass
+    args = {'datastores': datastores}
+    return render(request, 'datastores.html', args)
+
+@login_required(login_url='/login/')
+def datastoredetailedview(request, id):
+    client = request.user.client
+    try:
+        datastore  = assets_datastores.objects.get(client=client, id=id)
+        if request.method == "POST":
+            if request.POST.get("delete", "yes"):
+                datastore.delete()
+            else:
+                pass
+    except ObjectDoesNotExist:
+        return redirect(assetsview)
+        
+    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
+    args = {'client': client, 'datastore': datastore}
+    return render(request, 'datastore-display.html', args)
+
+@login_required(login_url='/login/')
+def datastoreaddview(request):
+    form = assets_datastores_form(client=request.user.client)
+    if request.method == "POST":
+        form = assets_datastores_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('/home/assets/datastores')
+    args = {'form': form}
+    return render(request, 'datastore-form.html', args)
+
+# Cloud Views
+
+@login_required(login_url='/login/')
+def cloudsview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+        clouds = assets_clouds.objects.filter(client=client)
+    else:
+        client = ''
+        pass
+    args = {'client': client, 'clouds': clouds}
+    return render(request, 'clouds.html', args)
+
+@login_required(login_url='/login/')
+def clouddetailedview(request, id):
+    client = request.user.client
+    try:
+        cloud  = assets_clouds.objects.get(client=client, id=id)
+        if request.method == "POST":
+            if request.POST.get("delete", "yes"):
+                cloud.delete()
+            else:
+                pass
+    except ObjectDoesNotExist:
+        return redirect(assetsview)
+        
+    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
+    args = {'client': client, 'cloud': cloud}
+    return render(request, 'cloud-display.html', args)
+
+@login_required(login_url='/login/')
+def cloudaddview(request):
+    form = assets_clouds_form(client=request.user.client)
+    if request.method == "POST":
+        form = assets_clouds_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('/home/assets/clouds')
+    args = {'form': form}
+    return render(request, 'cloud-form.html', args)
+
+# Network Views
+
+@login_required(login_url='/login/')
+def networksview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+        networks = assets_networks.objects.filter(client=client)
+    else:
+        client = ''
+        networks = ''
+        pass
+    args = {'client': client, 'networks': networks}
+    return render(request, 'networks.html', args)
+
+@login_required(login_url='/login/')
+def networkdetailedview(request, id):
+    client = request.user.client
+    try:
+        network  = assets_networks.objects.get(client=client, id=id)
+        if request.method == "POST":
+            if request.POST.get("delete", "yes"):
+                network.delete()
+            else:
+                pass
+    except ObjectDoesNotExist:
+        return redirect(assetsview)
+        
+    # Need to add error page if you try to hack us! - Ensure that Client is verfied as being the owner
+    args = {'client': client, 'network': network}
+    return render(request, 'network-display.html', args)
+
+@login_required(login_url='/login/')
+def networkaddview(request):
+    form = assets_networks_form(client=request.user.client)
+    if request.method == "POST":
+        form = assets_networks_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('/home/assets/networks')
+    args = {'form': form}
+    return render(request, 'network-form.html', args)
+
+# Add Tags Views
+
+#@login_required(login_url='/login/')
+#def tagsaddview(request):
+#    form = assets_tag_form(client=request.user.client)
+#    if request.method == "POST":
+#        form = assets_tag_form(request.POST, client=request.user.client)
+#        if form.is_valid():
+#            obj = form.save(commit=False)
+#            obj.client = request.user.client
+#            obj.save()
+#            return redirect('/home/assets/tag')
+#    args = {'form': form}
+#    return render(request, 'tags-form.html', args)

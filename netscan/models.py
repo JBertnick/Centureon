@@ -8,7 +8,7 @@ class assets_tags(models.Model):
 
     name = models.CharField(max_length=50)
     value = models.CharField(max_length=50)
-    client = models.ForeignKey('users.Client', on_delete=models.CASCADE)
+    client = models.ForeignKey('users.Client', on_delete=models.CASCADE, blank=True)
     created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
@@ -117,8 +117,9 @@ class assets_networks(models.Model):
     cidr = models.CharField(max_length=50)
     owner = models.ForeignKey(assets_owners, blank=True, on_delete=models.PROTECT, null=True)
     description = models.CharField(max_length=250)
+    site = models.ForeignKey(sites, on_delete=models.SET_NULL, blank=True, null=True)
     
-    virtual_appliance = models.ForeignKey(assets_virtualappliance, on_delete=models.CASCADE)
+    virtual_appliance = models.ForeignKey(assets_virtualappliance, on_delete=models.CASCADE, blank=True, null=True)
     external_asset = models.BooleanField(blank=True)
 
     client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, blank=True, null=True)
@@ -143,6 +144,7 @@ class assets_hosts(models.Model):
     ip_address = models.GenericIPAddressField(max_length=15)
     fqdn = models.CharField(max_length=50)
     site = models.ForeignKey(sites, on_delete=models.SET_NULL, blank=True, null=True)
+    
 
     external_asset = models.BooleanField(blank=True)
     operating_system = models.CharField(max_length=50)
@@ -201,6 +203,8 @@ class assets_datastores(models.Model):
     asset_type = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
     connection_string = models.CharField(max_length=250)
+    site = models.ForeignKey(sites, on_delete=models.SET_NULL, blank=True, null=True)
+    external_asset = models.BooleanField(blank=True, default=False)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
@@ -222,6 +226,8 @@ class assets_clouds(models.Model):
     name = models.CharField(max_length=50)
     asset_type = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
+    site = models.ForeignKey(sites, on_delete=models.SET_NULL, blank=True, null=True)
+    external_asset = models.BooleanField(blank=True, default=False)
 
     PROVIDER = (
     (1, ('Azure')),

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Centureon - Add Network{% endblock %}
+
+{% block content %}
+
+{% load staticfiles%}
+{% load crispy_forms_tags %}
+
+{% include 'menu.html' %}
+
+<main role="main" class="col-lg px-5">
+  <div class="flex-row justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-2 border-bottom">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-1">
+      <h1 class="h2">Add Network</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+    <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-6">
+        {{ form.name|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ form.cidr|as_crispy_field }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        {{ form.owner|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ form.site|as_crispy_field }}
+      </div>
+    </div>
+    {{ form.description|as_crispy_field }}
+    {{ form.tag|as_crispy_field }}
+    <div class="row">
+    <div class="col-6">
+        {{ form.virtual_appliance|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ form.enabled|as_crispy_field }} 
+      </div>
+      <div class="col-6">
+        {{ form.external_asset|as_crispy_field }}
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success float-right">Save Device</button>
+    </form>
+</main>
+
+{% endblock %}
+
+{% block section%}
+
+
+{% endblock %}
