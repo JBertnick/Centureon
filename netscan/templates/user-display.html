@@ -25,37 +25,44 @@
 
         <div class="row">
           <div class="col">
-            <div class="card">
+            <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Device Details</h5>
+                <h5 class="card-title">User Details</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Personal Data</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">First Name - {{ user.first_name }}</li>
+                  <li class="list-group-item">Last Name - {{ user.last_name }}</li>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Extended Information</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Role - {{ user.role }}</li>
+                  <li class="list-group-item">Manager - {{ user.manager }}</li>
+                  <li class="list-group-item">Created By - {{ user.created_by }}</li>
+                  <li class="list-group-item">Created At - {{ user.created_at }}</li>
+                  <li class="list-group-item">Last Updated - {{ user.updated_at }}</li>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Extended Information</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Username - {{ user.name }}</li>
-                  <li class="list-group-item">Device IP - {{ device.ip_address }}</li>
-              </div>
-            </div>
-          </div>
+                  <li class="list-group-item">Email - {{ user.email }}</li>
+                  <li class="list-group-item">Tags - {{ user.tag }}</li>
+                  <li class="list-group-item">Site
+                    <iframe width="100%" height="250px" src="https://maps.google.com/maps?q={{ user.site.postal_code }}=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0"></iframe>
+                  </li>
 
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Extended Information</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Site - {{ device.fqdn }}</li>
-                  <li class="list-group-item">Owner - {{ device.ip_address }}</li>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Extended Information</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Technical Details</h6>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Site - {{ device.fqdn }}</li>
-                  <li class="list-group-item">Owner - {{ device.ip_address }}</li>
               </div>
             </div>
           </div>

@@ -4,12 +4,6 @@ from users.models import Client
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
-class assets_master_form(forms.ModelForm):
-    class Meta:
-        model = assets_master
-        fields = ('name', 'state', 'client', 'owner', 'enabled')
-
-
 class assets_hosts_form(forms.ModelForm):
     class Meta:
         model = assets_hosts
