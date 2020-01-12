@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+import uuid
 
 from .managers import CustomUserManager
 
@@ -27,7 +28,7 @@ class Client(models.Model):
     # Company Details
     company_domain = models.CharField(max_length=50, blank=True)
     vat_number = models.CharField(max_length=50, blank=True)
-    ## company_account_num = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
+    company_account_num = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
     head_office = models.ForeignKey('netscan.sites', on_delete=models.PROTECT, null=True, related_name='head_office')
 
     # Company Tech Details
