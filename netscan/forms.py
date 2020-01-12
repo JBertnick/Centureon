@@ -36,7 +36,7 @@ class assets_user_form(forms.ModelForm):
 class sites_form(forms.ModelForm):
     class Meta:
         model = sites
-        fields = ('name', 'first_line_address', 'second_line_address', 'city', 'postal_code', 'is_headoffice', 'description', 'enabled', 'client')
+        fields = ('name', 'first_line_address', 'second_line_address', 'city', 'postal_code', 'description', 'enabled', 'client')
 
     def __init__(self, *args, **kwargs):
         client = kwargs.pop('client', None)

@@ -4,7 +4,6 @@ from netscan.models import sites, assets_master, assets_networks, assets_users, 
 from django.contrib.auth import login, authenticate
 from users.forms import CompanyAddUserForm
 from django.contrib.auth.decorators import login_required
-from revproxy.views import ProxyView
 
 def homeview(request):
     if request.user.is_authenticated:
@@ -64,14 +63,22 @@ def solarwindsview(request):
 def companyview(request):
     if request.user.is_authenticated:
         client = request.user.client
-        head_office = sites.objects.filter(client=client, is_headoffice=True)
-        for office in head_office:
-            pass
     else:
         client = ''
         pass
-    args = {'client': client, 'head_office': office}
+    args = {'client': client}
     return render(request, 'company.html', args)
+
+@login_required(login_url='/login/')
+def usersview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+        users = CustomUser.objects.filter(client=client)
+    else:
+        client = ''
+        pass
+    args = {'client': client, 'users': users}
+    return render(request, 'company-users.html', args)
 
 @login_required(login_url='/login/')
 def adduserview(request):
@@ -86,12 +93,4 @@ def adduserview(request):
     form = CompanyAddUserForm(request.POST or None, initial=initial_data)
     return render(request, 'newuser.html', {'form': form})
 
-class auroraproxyview(ProxyView):
-    upstream = 'https://nms.comtactglobal.com'
-    rewrite = (
-        (r'/$', r'/proxy/$'),
-    )
-
-class zscalerproxyview(ProxyView):
-    upstream = 'https://admin.zscalertwo.net'
 

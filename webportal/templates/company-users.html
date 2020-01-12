@@ -1,32 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}Centureon - Assets - Sites{% endblock %}
+{% block title %}Centureon - Assets - Users{% endblock %}
 
 {% block content %}
 
-{% include 'menu.html' %}
+{% include 'company-menu.html' %}
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <h1>Sites</h1>
+      <h1>Users</h1>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th>Name</th>
-              <th>Head Office</th>
+              <th>Email</th>
               <th>Date Added</th>
-              <th>Added By</th>
-              <th>Owner</th>
+              <th>Last Login</th>
             </tr>
           </thead>
           <tbody>
-            {% for site in sites %}
+            {% for user in users %}
             <tr>
-                <th> <a href="./sites/{{ site.id }}"> {{ site.name }}  </th>
-                <th> {{ site.is_headoffice }}  </th>
-                <th> {{ site.created_at }} </th>
-                <th> {{ site.created_by }} </th>
-                <th> {{ site.owner }} </th>
+                <th> <a href="./users/{{ user.id }}">{{ user.name }} </a></th>
+                <th> {{ user.email }}  </th>
+                <th> {{ user.created_at }} </th>
+                <th> {{ user.last_login }} </th>
             </tr> 
           {% endfor %}
           </tbody>

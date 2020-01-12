@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'netscan',
     'webportal',
     'users',
-    'revproxy',
     'bootstrap4',
     'crispy_forms',
     'django.contrib.admin',

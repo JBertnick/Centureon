@@ -88,8 +88,6 @@ class sites(models.Model):
     city = models.CharField(max_length=50, blank=True)
     postal_code = models.CharField(max_length=50, blank=True)
 
-    is_headoffice = models.BooleanField(default=False)
-
     valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
     
     created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, blank=True, null=True)

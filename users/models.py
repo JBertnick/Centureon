@@ -6,6 +6,18 @@ from django.utils import timezone
 
 from .managers import CustomUserManager
 
+class Licensing_modules(models.Model):
+    class Meta:
+        verbose_name_plural = "Licensing Modules"
+    
+    name = models.CharField(max_length=50)
+    value = models.CharField(max_length=50)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return self.name + ":" + self.value
+
+
 class Client(models.Model):
     class Meta:
         verbose_name_plural = "Clients"
@@ -15,7 +27,8 @@ class Client(models.Model):
     # Company Details
     company_domain = models.CharField(max_length=50, blank=True)
     vat_number = models.CharField(max_length=50, blank=True)
-    # company_account_num = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
+    ## company_account_num = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
+    head_office = models.ForeignKey('netscan.sites', on_delete=models.PROTECT, null=True, related_name='head_office')
 
     # Company Tech Details
 
@@ -27,8 +40,12 @@ class Client(models.Model):
 
 
     # Licensing
+    licensed_users = models.IntegerField(default=1)
+    licensed_modules = models.ManyToManyField('Licensing_modules')
 
     # Comtact Details
+    account_manager = models.ForeignKey('CustomUser', on_delete=models.PROTECT, null=True, related_name='account_manage')
+    technical_lead = models.ForeignKey('CustomUser', on_delete=models.PROTECT, null=True, related_name='account_lead')
 
     
     def __str__(self):
@@ -51,7 +68,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
 
-    date_joined = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
 
     USERNAME_FIELD = 'email'

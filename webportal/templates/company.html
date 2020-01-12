@@ -4,7 +4,6 @@
 
 {% block content %}
 
-{% load staticfiles%}
 {% include 'company-menu.html' %}
 
 <main role="main" class="col-lg px-5">
@@ -28,8 +27,8 @@
                 <h5 class="card-title">Company Details</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Your company account details are as follows.</h6>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Head Office - {{ device.fqdn }}</li>
-                  <li class="list-group-item">Company Account Number - {{ device.ip_address }}</li>
+                  <li class="list-group-item">Head Office - {{ client.head_office }}</li>
+                  <li class="list-group-item">Company Account Number - {{ client.account_num }}</li>
               </div>
             </div>
           </div>
@@ -40,8 +39,8 @@
                 <h5 class="card-title">Licensing</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Your company is licensed for the below.</h6>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Users - {{ device.fqdn }}</li>
-                  <li class="list-group-item">Addons - {{ device.ip_address }}</li>
+                  <li class="list-group-item">Users - {{ client.licensed_users }}</li>
+                  <li class="list-group-item">Addons - {{ client.licensed_modules }}</li>
               </div>
             </div>
           </div>
@@ -52,8 +51,8 @@
                 <h5 class="card-title">Extended Information</h5>
                 <h6 class="card-subtitle mb-2 text-muted">More information about your company account.</h6>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Account Manager- {{ device.fqdn }}</li>
-                  <li class="list-group-item">Technical Lead - {{ device.ip_address }}</li>
+                  <li class="list-group-item">Account Manager- {{ client.account_manager }}</li>
+                  <li class="list-group-item">Technical Lead - {{ client.technical_lead }}</li>
               </div>
             </div>
           </div>
