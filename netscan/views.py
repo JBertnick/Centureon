@@ -79,17 +79,34 @@ def userdetailedview(request, id):
     return render(request, 'user-display.html', args)
 
 @login_required(login_url='/login/')
-def useraddview(request):
+def useraddview(request, id=None):
     form = assets_user_form(client=request.user.client)
-    if request.method == "POST":
-        form = assets_user_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
+    if id:
+        client = request.user.client
+        try:
+            user = assets_users.objects.get(client=client, id=id)
+            form = assets_user_form(client=request.user.client, instance=user)
+        except assets_users.DoesNotExist:
             return redirect('/home/assets/users')
+    if request.method == "POST":
+        if id:
+            form = assets_user_form(request.POST, client=request.user.client, instance=user)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/users/' + str(id) )
+            else:
+                print(form.errors)
         else:
-            print(form.errors)
+            form = assets_user_form(request.POST, client=request.user.client)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/users')
+            else:
+                print(form.errors)
     args = {'form': form}
     return render(request, 'user-form.html', args)
 
@@ -125,17 +142,35 @@ def sitedetailedview(request, id):
     return render(request, 'site-display.html', args)
 
 @login_required(login_url='/login/')
-def siteaddview(request):
+def siteaddview(request, id=None):
     form = sites_form(client=request.user.client)
-    if request.method == "POST":
-        form = sites_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
+    if id:
+        client = request.user.client
+        try:
+            site = sites.objects.get(client=client, id=id)
+            form = sites_form(client=request.user.client, instance=site)
+        except sites.DoesNotExist:
             return redirect('/home/assets/sites')
+    if request.method == "POST":
+        if id:
+            form = sites_form(request.POST, client=request.user.client, instance=site)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/sites/' + str(id) )
+            else:
+                print(form.errors)
         else:
-            print(form.errors)
+            form = sites_form(request.POST, client=request.user.client)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/sites')
+            else:
+                print(form.errors)
+    print(form)
     args = {'form': form}
     return render(request, 'site-form.html', args)
 
@@ -170,15 +205,35 @@ def devicesdetailedview(request, id):
     return render(request, 'device-display.html', args)
 
 @login_required(login_url='/login/')
-def deviceaddview(request):
+def deviceaddview(request, id=None):
     form = assets_hosts_form(client=request.user.client)
-    if request.method == "POST":
-        form = assets_hosts_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
+    if id:
+        client = request.user.client
+        try:
+            device = assets_hosts.objects.get(client=client, id=id)
+            form = assets_hosts_form(client=request.user.client, instance=device)
+        except assets_hosts.DoesNotExist:
             return redirect('/home/assets/devices')
+    if request.method == "POST":
+        if id:
+            form = assets_hosts_form(request.POST, client=request.user.client, instance=device)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/devices/' + str(id) )
+            else:
+                print(form.errors)
+        else:
+            form = assets_hosts_form(request.POST, client=request.user.client)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/devices')
+            else:
+                print(form.errors)
+
     args = {'form': form}
     return render(request, 'device-form.html', args)
 
@@ -213,15 +268,34 @@ def datastoredetailedview(request, id):
     return render(request, 'datastore-display.html', args)
 
 @login_required(login_url='/login/')
-def datastoreaddview(request):
+def datastoreaddview(request, id=None):
     form = assets_datastores_form(client=request.user.client)
-    if request.method == "POST":
-        form = assets_datastores_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
+    if id:
+        client = request.user.client
+        try:
+            datastore = assets_datastores.objects.get(client=client, id=id)
+            form = assets_datastores_form(client=request.user.client, instance=datastore)
+        except assets_datastores.DoesNotExist:
             return redirect('/home/assets/datastores')
+    if request.method == "POST":
+        if id:
+            form = assets_datastores_form(request.POST, client=request.user.client, instance=datastore)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/datastores/' + str(id) )
+            else:
+                print(form.errors)
+        else:
+            form = assets_datastores_form(request.POST, client=request.user.client)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/datastores')
+            else:
+                print(form.errors)
     args = {'form': form}
     return render(request, 'datastore-form.html', args)
 
