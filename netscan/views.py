@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
+from django.http import HttpResponseForbidden
 from netscan.models import assets_clouds, assets_datastores, assets_hosts, assets_master, assets_networks, assets_owners, assets_users, sites
 from netscan.forms import assets_hosts_form, assets_user_form, sites_form, assets_datastores_form, assets_networks_form, assets_clouds_form
 from django.core.exceptions import ObjectDoesNotExist
@@ -255,15 +256,34 @@ def clouddetailedview(request, id):
     return render(request, 'cloud-display.html', args)
 
 @login_required(login_url='/login/')
-def cloudaddview(request):
+def cloudaddview(request, id=None):
     form = assets_clouds_form(client=request.user.client)
-    if request.method == "POST":
-        form = assets_clouds_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
+    if id:
+        client = request.user.client
+        try:
+            cloud = assets_clouds.objects.get(client=client, id=id)
+            form = assets_clouds_form(client=request.user.client, instance=cloud)
+        except assets_clouds.DoesNotExist:
             return redirect('/home/assets/clouds')
+    if request.method == "POST":
+        if id:
+            form = assets_clouds_form(request.POST, client=request.user.client, instance=cloud)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/clouds/' + str(id) )
+            else:
+                print(form.errors)
+        else:
+            form = assets_clouds_form(request.POST, client=request.user.client)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/clouds')
+            else:
+                print(form.errors)
     args = {'form': form}
     return render(request, 'cloud-form.html', args)
 
@@ -299,15 +319,34 @@ def networkdetailedview(request, id):
     return render(request, 'network-display.html', args)
 
 @login_required(login_url='/login/')
-def networkaddview(request):
+def networkaddview(request, id=None):
     form = assets_networks_form(client=request.user.client)
-    if request.method == "POST":
-        form = assets_networks_form(request.POST, client=request.user.client)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.client = request.user.client
-            obj.save()
+    if id:
+        client = request.user.client
+        try:
+            network = assets_networks.objects.get(client=client, id=id)
+            form = assets_networks_form(client=request.user.client, instance=network)
+        except assets_networks.DoesNotExist:
             return redirect('/home/assets/networks')
+    if request.method == "POST":
+        if id:
+            form = assets_networks_form(request.POST, client=request.user.client, instance=network)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/networks/' + str(id) )
+            else:
+                print(form.errors)
+        else:
+            form = assets_networks_form(request.POST, client=request.user.client)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.client = request.user.client
+                obj.save()
+                return redirect('/home/assets/networks')
+            else:
+                print(form.errors)
     args = {'form': form}
     return render(request, 'network-form.html', args)
 
