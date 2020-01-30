@@ -1,12 +1,17 @@
 from django.conf.urls import url, include
 from django.urls import path
-from netscan.api import ClientResource
-from netscan.views import assetsview, devicesview, datastoresview, cloudsview, usersview, networksview, sitesview, devicesdetailedview, sitedetailedview, deviceaddview, useraddview, userdetailedview, siteaddview, datastoreaddview, datastoredetailedview, cloudaddview, clouddetailedview, networkdetailedview, networkaddview
+from netscan.api import ClientResource, Client_networks, Client_device, Users, Device_ports
+from netscan.views import assetsview, devicesview, datastoresview, cloudsview, usersview, networksview, sitesview, devicesdetailedview, sitedetailedview, deviceaddview, useraddview, userdetailedview, siteaddview, datastoreaddview, datastoredetailedview, cloudaddview, clouddetailedview, networkdetailedview, networkaddview, tagsaddview
 from tastypie.api import Api
 
 
 v1_api = Api(api_name='v1')
 v1_api.register(ClientResource())
+v1_api.register(Client_networks())
+v1_api.register(Client_device())
+v1_api.register(Device_ports())
+v1_api.register(Users())
+
 
 urlpatterns = [url(r'^api/', include(v1_api.urls)),
     path('home/assets', assetsview),
@@ -34,6 +39,7 @@ urlpatterns = [url(r'^api/', include(v1_api.urls)),
     path('home/assets/datastores/add/', datastoreaddview),
     path('home/assets/datastores/edit/<int:id>/', datastoreaddview),
     path('home/assets/datastores/<int:id>/', datastoredetailedview),
+    path('home/assets/tags', tagsaddview), 
     #path('home/company/assets/update-host', update_assets_host, name='updatehosts'),
     #path('home/company/assets/new-host', new_assets_host, name='newhosts')
     ]

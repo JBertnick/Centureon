@@ -1,5 +1,5 @@
 from django import forms
-from netscan.models import assets_master,  assets_hosts, assets_users, sites, assets_datastores, assets_clouds, assets_networks
+from netscan.models import assets_master,  assets_hosts, assets_users, sites, assets_datastores, assets_clouds, assets_networks, assets_tags
 from users.models import Client
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -7,7 +7,7 @@ from crispy_forms.layout import Submit
 class assets_hosts_form(forms.ModelForm):
     class Meta:
         model = assets_hosts
-        fields = ('name', 'ip_address', 'fqdn', 'site', 'external_asset', 'operating_system', 'description', 'device_type', 'ports_open', 'tag', 'enabled', 'client')
+        fields = ('name', 'ip_address', 'fqdn', 'site', 'external_asset', 'operating_system', 'description', 'device_type', 'tag', 'enabled', 'client')
 
     def __init__(self, *args, **kwargs):
         client = kwargs.pop('client', None)
@@ -88,15 +88,15 @@ class assets_networks_form(forms.ModelForm):
         self.fields['site'].queryset = sites.objects.filter(client=client)
         self.fields['client'].initial = client
 
-#class assets_tag_form(forms.ModelForm):
-#    class Meta:
-#        model = assets_networks
-#        fields = ('name', 'value', 'client')
-#
-#    def __init__(self, *args, **kwargs):
-#        client = kwargs.pop('client', None)
-#        super().__init__(*args, **kwargs)
-#        self.helper = FormHelper()
-#        self.helper.form_method = 'post'
-#        self.helper.add_input(Submit('submit', 'Save Tag'))
-#        self.fields['client'].initial = client
+class assets_tag_form(forms.ModelForm):
+    class Meta:
+        model = assets_tags
+        fields = ('name', 'value', 'client')
+
+    def __init__(self, *args, **kwargs):
+        client = kwargs.pop('client', None)
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Save Tag'))
+        self.fields['client'].initial = client

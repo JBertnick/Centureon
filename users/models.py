@@ -65,6 +65,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_demo = models.BooleanField(default=False)
     is_comtactadmin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    is_api = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)

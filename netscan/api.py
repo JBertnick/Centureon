@@ -3,36 +3,75 @@
 
 from tastypie.resources import ModelResource, fields, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
-from users.models import Client
+from tastypie.authentication import ApiKeyAuthentication
+from users.models import Client, CustomUser
+from netscan.models import assets_networks, assets_hosts, assets_ports
 
 class ClientResource(ModelResource):
     class Meta:
         queryset = Client.objects.all()
         resource_name = 'client'
-        allowed_methods = ['get', 'post', 'put']
+        allowed_methods = ['get', 'post']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
 
-#class Client_networksResource(ModelResource):
-##    client = fields.ForeignKey(ClientResource, 'client', full=True)
-#    class Meta:
-#        queryset = Client_networks.objects.all()
-#        resource_name = 'client_networks'
-#        allowed_methods = ['get', 'post', 'put']
-#
-#        filtering = {
-#            'client': ALL_WITH_RELATIONS
-#        }
-#
-# class DeviceResource(ModelResource):
-#    client = fields.ForeignKey(ClientResource, 'client', full=True)
-#    class Meta:
-#        queryset = Device.objects.all()
-#        resource_name = 'device'
-#        allowed_methods = ['get', 'post', 'put']
-#        authorization = Authorization()
-#
-#        filtering = {
-#            'client': ALL_WITH_RELATIONS,
-#            'ip_address': ALL_WITH_RELATIONS
-#        }
+    def authorized_read_list(self, object_list, bundle):
+        return object_list.filter(client=bundle.request.user.client)
+    
+    def obj_create(self, bundle, **kwargs):
+        return super(MyModelResource, self).obj_create(bundle, client=bundle.request.user.client)
+
+class Client_networks(ModelResource):
+    class Meta:
+        queryset = assets_networks.objects.all()
+        resource_name = 'networks'
+        allowed_methods = ['get', 'post', 'put']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
+
+    def authorized_read_list(self, object_list, bundle):
+        return object_list.filter(client=bundle.request.user.client)
+    
+    def obj_create(self, bundle, **kwargs):
+        return super(MyModelResource, self).obj_create(bundle, client=bundle.request.user.client)
+
+class Client_device(ModelResource):
+    class Meta:
+        queryset = assets_hosts.objects.all()
+        resource_name = 'devices'
+        allowed_methods = ['get', 'post', 'put']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
+        excludes = ['created_at', 'description', 'external_asset', 'name', 'valid_until']
+
+        filtering = {
+            'ip_address': ALL_WITH_RELATIONS,
+        }
+
+    def authorized_read_list(self, object_list, bundle):
+        return object_list.filter(client=bundle.request.user.client)
+    
+    def obj_create(self, bundle, **kwargs):
+        return super(Client_device, self).obj_create(bundle, client=bundle.request.user.client)
+
+class Device_ports(ModelResource):
+    class Meta:
+        queryset = assets_ports.objects.all()
+        resource_name = 'ports'
+        allowed_methods = ['get', 'post', 'put']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
+
+        filtering = {
+            'type': ALL_WITH_RELATIONS,
+            'number': ALL_WITH_RELATIONS,
+        }
+
+class Users(ModelResource):
+    class Meta:
+        queryset = CustomUser.objects.all()
+        resource_name = 'User'
+        allowed_methods = ['get', 'post', 'put']
+        authentication = ApiKeyAuthentication()
 
 

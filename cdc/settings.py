@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'bootstrap4',
     'crispy_forms',
+    'tastypie',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

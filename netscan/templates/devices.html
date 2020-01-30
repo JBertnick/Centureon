@@ -24,8 +24,8 @@
             {% for device in devices %}
             <tr>
                 <th> <a href="./devices/{{ device.id }}"> {{ device.name }}  </th>
-                <th> {{ device.fqdn }}  </th>
-                <th> {{ device.ip_address }}  </th>
+                <th> <a href="./devices/{{ device.id }}"> {{ device.fqdn }}  </th>
+                <th> <a href="./devices/{{ device.id }}"> {{ device.ip_address }}  </th>
                 <th> {{ device.created_at }} </th>
                 <th> {{ device.created_by }} </th>
                 <th> {{ device.owner }} </th>

@@ -14,6 +14,23 @@ class assets_tags(models.Model):
     def __str__(self):
         return self.name + ":" + self.value
 
+class assets_ports(models.Model):
+    class Meta:
+        verbose_name_plural = "Assets Ports"
+
+    TYPE = (
+    (1, ('tcp')),
+    (2, ('udp')),
+    )
+
+    type = models.PositiveSmallIntegerField(
+      choices=TYPE,
+      default=1,
+    )
+
+    number = models.IntegerField()
+    description = models.TextField(max_length=500)
+
 class assets_owners(models.Model):
     class Meta:
         verbose_name_plural = "Assets Owner"
@@ -144,11 +161,11 @@ class assets_hosts(models.Model):
     site = models.ForeignKey(sites, on_delete=models.SET_NULL, blank=True, null=True)
     
 
-    external_asset = models.BooleanField(blank=True)
+    external_asset = models.BooleanField(blank=True, default=False)
     operating_system = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
     device_type = models.CharField(max_length=250)
-    ports_open = models.CharField(max_length=250, blank=True)
+    ports = models.ManyToManyField(assets_ports)
 
     client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -253,21 +270,3 @@ class assets_clouds(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class assets_ports(models.Model):
-    class Meta:
-        verbose_name_plural = "Assets Ports"
-
-    TYPE = (
-    (1, ('tcp')),
-    (2, ('udp')),
-    )
-
-    type = models.PositiveSmallIntegerField(
-      choices=TYPE,
-      default=1,
-    )
-
-    number = models.IntegerField()
-    description = models.TextField(max_length=500)

@@ -170,7 +170,6 @@ def siteaddview(request, id=None):
                 return redirect('/home/assets/sites')
             else:
                 print(form.errors)
-    print(form)
     args = {'form': form}
     return render(request, 'site-form.html', args)
 
@@ -426,15 +425,15 @@ def networkaddview(request, id=None):
 
 # Add Tags Views
 
-#@login_required(login_url='/login/')
-#def tagsaddview(request):
-#    form = assets_tag_form(client=request.user.client)
-#    if request.method == "POST":
-#        form = assets_tag_form(request.POST, client=request.user.client)
-#        if form.is_valid():
-#            obj = form.save(commit=False)
-#            obj.client = request.user.client
-#            obj.save()
-#            return redirect('/home/assets/tag')
-#    args = {'form': form}
-#    return render(request, 'tags-form.html', args)
+@login_required(login_url='/login/')
+def tagsaddview(request):
+    form = assets_tag_form(client=request.user.client)
+    if request.method == "POST":
+        form = assets_tag_form(request.POST, client=request.user.client)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.client = request.user.client
+            obj.save()
+            return redirect('/home/assets/tag')
+    args = {'form': form}
+    return render(request, 'tags-form.html', args)
