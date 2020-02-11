@@ -5,6 +5,10 @@ from django.contrib.auth import login, authenticate
 from users.forms import CompanyAddUserForm
 from django.contrib.auth.decorators import login_required
 
+def rootview(request):
+    response = redirect('/home/')
+    return response
+
 def homeview(request):
     if request.user.is_authenticated:
         client = request.user.client
