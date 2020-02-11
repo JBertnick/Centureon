@@ -27,7 +27,7 @@ SECRET_KEY = 'btu1d&&nor6!d#vcn^1)4c+9o2i)8m@&gn+flc=-xmmkh&qho&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['comtact.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['comtact.azurewebsites.net', ]
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/home'
@@ -135,9 +135,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 #STATICFILES_DIRS = (
+#        '/var/www/static/',
 #        os.path.join(BASE_DIR, 'static'),
-#        '/wwwroot/static/',
 #)
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "wwwroot/static")
