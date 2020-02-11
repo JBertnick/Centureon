@@ -25,7 +25,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 SECRET_KEY = 'btu1d&&nor6!d#vcn^1)4c+9o2i)8m@&gn+flc=-xmmkh&qho&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['comtact.azurewebsites.net', '127.0.0.1']
 
