@@ -27,7 +27,7 @@ SECRET_KEY = 'btu1d&&nor6!d#vcn^1)4c+9o2i)8m@&gn+flc=-xmmkh&qho&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['comtact.azurewebsites.net', ]
+ALLOWED_HOSTS = ['comtact.azurewebsites.net', '127.0.0.1']
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/home'
@@ -140,4 +140,3 @@ USE_TZ = True
 #)
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/wwwroot/static/'
