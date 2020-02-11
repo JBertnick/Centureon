@@ -90,9 +90,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'cdc',
-        'USER': 'cdc',
-        'PASSWORD': 'cdc',
-        'HOST': '127.0.0.1',
+        'USER': 'django@dev-cent-db1',
+        'PASSWORD': 'CAmgBDFFhFPkyD9Q',
+        'HOST': 'dev-cent-db1.postgres.database.azure.com',
         'PORT': "5432",
     }
 }
