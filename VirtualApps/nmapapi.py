@@ -49,11 +49,11 @@ def get_clientnetworksdata():
     else:
         print('[!] Request Failed')
 
-def add_device(ipaddress, fqdn):
+def add_device(host, hostname, data, mac, lastboot, os, tcp_ports, udp_port, type):
 
     # Adds device to database
     api_url = '{0}devices/'.format(api_url_base)
-    device = {'ip_address': ipaddress, 'fqdn': fqdn, 'external_asset': "False"}
+    device = {'ip_address': host, 'fqdn': hostname, 'external_asset': "False", 'scan_data': data, 'mac': mac, 'last_boot': lastboot, 'operating_system': os, 'device_type': type}
     
     response = requests.post(api_url, headers=headers, json=device)
     
@@ -80,11 +80,11 @@ def add_device(ipaddress, fqdn):
         print('[?] Unexpected Error: [HTTP {0}]: Content: {1}'.format(response.status_code, response.content))
         return None
 
-def update_device(id, ipaddress, fqdn):
+def update_device(id, host, hostname, data, mac, lastboot, os, tcp_ports, udp_port, type):
 
     # updates device in database
     api_url = '{0}devices/{1}/'.format(api_url_base, id)
-    device = {'ip_address': ipaddress, 'fqdn': fqdn , 'external_asset': "False"}
+    device = {'ip_address': host, 'fqdn': hostname, 'external_asset': "False", 'scan_data': data, 'mac': mac, 'last_boot': lastboot, 'operating_system': os, 'device_type': type}
     
     response = requests.put(api_url, headers=headers, json=device)
     

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
@@ -30,6 +31,11 @@ class assets_ports(models.Model):
 
     number = models.IntegerField()
     description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.number
+
+        
 
 class assets_owners(models.Model):
     class Meta:
@@ -158,14 +164,17 @@ class assets_hosts(models.Model):
     name = models.CharField(max_length=50)
     ip_address = models.GenericIPAddressField(max_length=15)
     fqdn = models.CharField(max_length=50)
+    mac = models.CharField(max_length=18, null=True)
     site = models.ForeignKey(sites, on_delete=models.SET_NULL, blank=True, null=True)
     
 
     external_asset = models.BooleanField(blank=True, default=False)
     operating_system = models.CharField(max_length=50)
+    last_boot = models.DateTimeField(null=True)
     description = models.CharField(max_length=250)
     device_type = models.CharField(max_length=250)
     ports = models.ManyToManyField(assets_ports)
+    scan_data = JSONField(null=True)
 
     client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -174,7 +183,7 @@ class assets_hosts(models.Model):
     valid_until = models.DateField(auto_now_add=False, blank=True, null=True)
     created_by = models.ForeignKey('users.CustomUser', on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     enabled = models.BooleanField(blank=False, default=True)
 
     def __str__(self):

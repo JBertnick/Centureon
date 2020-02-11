@@ -32,6 +32,7 @@
                   <li class="list-group-item">Asset Name - {{ device.name }}</li>
                   <li class="list-group-item">Device DNS - {{ device.fqdn }}</li>
                   <li class="list-group-item">Device IP - {{ device.ip_address }}</li>
+                  <li class="list-group-item">Device Mac - {{ device.mac }}</li>
                   <li class="list-group-item">Description - {{ device.description }}</li>
               </div>
             </div>
@@ -43,7 +44,7 @@
                 <h5 class="card-title">Extended Information</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Asset Security</h6>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Last - {{ device.ip_address }}</li>
+                  <li class="list-group-item">Last Boot - {{ device.last_boot }}</li>
                   <li class="list-group-item">Operating System - {{ device.operating_system }}</li>
                   <li class="list-group-item">Created By - {{ device.created_by }}</li>
                   <li class="list-group-item">Created At - {{ device.created_at }}</li>

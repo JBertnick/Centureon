@@ -21,16 +21,16 @@ def loaddata():
         networks.append(network['cidr'])
     print (networks)
 
-def add_data(host, hostname):
+def add_data(host, hostname, data, mac, lastboot, os, tcp_ports, udp_port, type):
     id = nmapapi.lookupdevice(host)
 
     # Looks up exsiting devices in database and checks 
 
     if id == None :
-        nmapapi.add_device(host, hostname)
+        nmapapi.add_device(host, hostname, data, mac, lastboot, os, tcp_ports, udp_port, type)
         print('Device does not exist adding to database')
     else:
-        nmapapi.update_device(id, host, hostname)
+        nmapapi.update_device(id, host, hostname, data, mac, lastboot, os, tcp_ports, udp_port, type)
         print('Device exists updated data in database')
 
     # nmapapi.add_device(hostname, host, client)
@@ -80,33 +80,38 @@ def scanfull():
     
     # Loads the networks for scaning from the JSON data stored from the API.
     # Loops though networks and scans for hosts up.
+    # Checks with API for existance and adds or updates.
 
     for network in networks_json['objects']:
-        nm.scan(network['cidr'], arguments='--disable-arp-ping')
+        nm.scan(network['cidr'], arguments='-O --disable-arp-ping')
         
         for host in nm.all_hosts():
             hostname = nm[host].hostname()
-            print(hostname)
-            print(nm[host])
-            #add_data(host, hostname)
-            #print('----------------------------------------------------')
-            #print('Host : %s (%s)' % (host, nm[host].hostname()))
-            #print('State : %s' % nm[host].state())
-            #
-            #for proto in nm[host].all_protocols():
-            #    print('----------')
-            #    print('Protocol : %s' % proto)
-            #
-            #    lport = nm[host][proto].keys()
-            #    sorted(lport)
-            #    for port in lport:
-            #        print ('port : %s\tstate : %s' % (port, nm[host][proto][port]['state']))
-            #        if proto == 'tcp':
-            #            add_port('1', port)
-            #        if proto == 'udp':
-            #            add_port('2', port)
-            #        else:
-            #            pass
+            data = nm[host]
+            try:
+                mac = nm[host]['addresses']['mac']
+            except KeyError:
+                mac = 'none'
+            try: 
+                lastboot = nm[host]['uptime']['lastboot']
+            except KeyError:
+                lastboot = 'Null'
+            try:
+                os = nm[host]['osmatch'][0]['name']
+            except KeyError:
+                os = 'none'
+            except IndexError:
+                os = 'none'
+            tcp_ports = nm[host].all_tcp()
+            udp_port = nm[host].all_udp()
+            try:
+                type = nm[host]['osmatch'][0]['osclass'][0]['type']
+            except KeyError:
+                type = 'none'
+            except IndexError:
+                type = 'none'
+            
+            add_data(host, hostname, data, mac, lastboot, os, tcp_ports, udp_port, type)
 
     
 # scan(loaddata.networks(1), '0-21')
