@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from users.models import Client, CustomUser
 from netscan.models import sites, assets_master, assets_networks, assets_users, assets_hosts, assets_clouds, assets_datastores
+from .models import product_version, product_release_notes
 from django.contrib.auth import login, authenticate
 from users.forms import CompanyAddUserForm
 from django.contrib.auth.decorators import login_required
@@ -10,13 +11,17 @@ def rootview(request):
     return response
 
 def homeview(request):
+    
+    version = product_version.objects.filter(is_current=True).first()
+    notes = product_release_notes.objects.filter(version=version).first()
+    
     if request.user.is_authenticated:
         client = request.user.client
     else:
         client = ''
         pass
-     
-    args = {'client': client}
+
+    args = {'client': client, 'version': version, 'product_notes': notes}
     return render(request, 'home.html', args)
 
 @login_required(login_url='/login/')
