@@ -81,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'cdc.wsgi.application'
+# WSGI_APPLICATION = 'cdc.wsgi.application'
 
 
 # Database

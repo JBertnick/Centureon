@@ -7,7 +7,7 @@ username = "test@comtact2.com"
 apikey = "7ce692f2e471835b0376dda218819053379ea171"
 
 api_token = username + ":" + apikey
-api_url_base = 'http://127.0.0.1:8000/api/v1/'
+api_url_base = 'https://comtact.azurewebsites.net/api/v1/'
 
 headers = {'Content-Type': 'application/json',
            'Authorization': 'ApiKey {0}'.format(api_token)}

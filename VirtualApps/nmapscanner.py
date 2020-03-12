@@ -116,7 +116,7 @@ def scanfull():
     
 # scan(loaddata.networks(1), '0-21')
 # scan('192.168.1.1/24', '0-8000')
-scanfull()
+#scanfull()
 # scanbasic('1')
 #add_data('192.168.0.1','test.com','1')
-#loaddata()
+loaddata()

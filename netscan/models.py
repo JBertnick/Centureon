@@ -127,6 +127,7 @@ class assets_virtualappliance(models.Model):
     
     ip_address = models.GenericIPAddressField(max_length=15)
     dns_name = models.CharField(max_length=50)
+    login = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
 
