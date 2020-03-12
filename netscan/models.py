@@ -125,11 +125,14 @@ class assets_virtualappliance(models.Model):
     class Meta:
         verbose_name_plural = "Assets Virtual Appliance"
     
-    ip_address = models.GenericIPAddressField(max_length=15)
-    dns_name = models.CharField(max_length=50)
+    ip_address = models.GenericIPAddressField(max_length=15, null=True, blank=True)
+    dns_name = models.CharField(max_length=50, null=True, blank=True)
+    client = models.ForeignKey('users.Client', on_delete=models.SET_NULL, blank=True, null=True)
+
     login = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
 
     tag = models.ManyToManyField(assets_tags, blank=True)
+
 
 class assets_networks(models.Model):
     class Meta:

@@ -79,6 +79,16 @@ def companyview(request):
     return render(request, 'company.html', args)
 
 @login_required(login_url='/login/')
+def companyvaview(request):
+    if request.user.is_authenticated:
+        client = request.user.client
+    else:
+        client = ''
+        pass
+    args = {'client': client}
+    return render(request, 'company-va.html', args)
+
+@login_required(login_url='/login/')
 def usersview(request):
     if request.user.is_authenticated:
         client = request.user.client
