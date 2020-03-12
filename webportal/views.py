@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from users.models import Client, CustomUser
-from netscan.models import sites, assets_master, assets_networks, assets_users, assets_hosts, assets_clouds, assets_datastores
+from netscan.models import sites, assets_master, assets_networks, assets_users, assets_hosts, assets_clouds, assets_datastores, assets_virtualappliance
 from .models import product_version, product_release_notes
 from django.contrib.auth import login, authenticate
 from users.forms import CompanyAddUserForm
@@ -82,10 +82,11 @@ def companyview(request):
 def companyvaview(request):
     if request.user.is_authenticated:
         client = request.user.client
+        va = assets_virtualappliance.objects.filter(client=client)
     else:
         client = ''
         pass
-    args = {'client': client}
+    args = {'client': client, 'va': va}
     return render(request, 'company-va.html', args)
 
 @login_required(login_url='/login/')
