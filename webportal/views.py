@@ -5,6 +5,7 @@ from .models import product_version, product_release_notes
 from django.contrib.auth import login, authenticate
 from users.forms import CompanyAddUserForm
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 def rootview(request):
     response = redirect('/home/')
@@ -88,6 +89,22 @@ def companyvaview(request):
         pass
     args = {'client': client, 'va': va}
     return render(request, 'company-va.html', args)
+
+@login_required(login_url='/login/')
+def companyvadetails(request, id):
+    client = request.user.client
+    try:
+        va = assets_virtualappliance.objects.get(client=client, id=id)
+        if request.method == "POST":
+            if request.POST.get("delete", "yes"):
+                va.delete()
+            else:
+                pass
+    except ObjectDoesNotExist:
+        return redirect(companyvaview)
+
+    args = {'client': client, 'va': va}
+    return render(request, 'company-va-display.html', args)
 
 @login_required(login_url='/login/')
 def usersview(request):

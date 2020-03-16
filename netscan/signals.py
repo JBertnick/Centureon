@@ -28,6 +28,7 @@ def save_va(sender, instance, created, **kwargs):
     if created:
         email = str(instance.id) + '@vascanner.com'
         password = randomString()
+        print(password)
         CustomUser.objects.get_or_create(email=email, password=password, is_api=True, client=instance.client)
         user = CustomUser.objects.get(email=email)
         instance.login = user

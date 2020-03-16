@@ -140,9 +140,10 @@ USE_TZ = True
 #        os.path.join(BASE_DIR, 'static'),
 #)
 
+# Azure Config - Needs to be on for Azure to work!!!!
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 
 DEFAULT_FILE_STORAGE = 'cdc.custom_azure.AzureMediaStorage'
 STATICFILES_STORAGE = 'cdc.custom_azure.AzureStaticStorage'

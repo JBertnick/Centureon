@@ -21,7 +21,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2', 'is_staff', 'is_client', 'is_service', 'is_sales', 'is_demo', 'is_comtactadmin', 'is_api', 'is_active')}
         ),
     )
-    search_fields = ('email', 'client')
+    search_fields = ('email', 'client',)
     ordering = ('email',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
