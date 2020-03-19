@@ -110,7 +110,8 @@ def companyvadetails(request, id):
 def usersview(request):
     if request.user.is_authenticated:
         client = request.user.client
-        users = CustomUser.objects.filter(client=client)
+        users_unfiltered = CustomUser.objects.filter(client=client)
+        users = users_unfiltered.exclude(is_api=True)
     else:
         client = ''
         pass

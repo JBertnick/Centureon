@@ -283,3 +283,22 @@ class assets_clouds(models.Model):
 
     def __str__(self):
         return self.name
+
+#class assets_jobs(models.Model):
+#        verbose_name_plural = "Assets Jobs"
+##    class Meta:
+#
+#    JOB = (
+#    (1, ('Network Scan')),
+#    (2, ('Vulnerability Scan')),
+#    )
+#
+#    job = models.PositiveSmallIntegerField(
+#      choices=JOB,
+#      default=1,
+#    )
+#
+#    scanner = models.ForeignKey('assets_virtualappliance', on_delete=models.SET_NULL, blank=True, null=True)
+#    completed = models.models.BooleanField(blank=False, default=False)
+    
+
